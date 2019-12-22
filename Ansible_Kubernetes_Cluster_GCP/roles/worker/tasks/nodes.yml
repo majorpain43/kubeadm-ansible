@@ -1,0 +1,16 @@
+---
+
+- name: Changing INTERNAL-IP to be Host-Only address from default NAT
+  lineinfile:
+    path: /etc/default/kubelet
+    line: KUBELET_EXTRA_ARGS=--node-ip={{ node_ip }}
+    create: yes
+
+- name: Copying the join command to server location
+  copy:
+    src: "{{ role_path }}/files/join-command"
+    dest: /tmp/join-command.sh 
+    mode: '0777'
+
+- name: Joining the node to cluster
+  command: sh /tmp/join-command.sh

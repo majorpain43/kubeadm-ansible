@@ -1,0 +1,99 @@
+---
+
+- name: Add the keepalived through ppa
+  apt_key:
+    id: "{{ keepalived_ppa_keyid }}"
+    keyserver: "{{ keepalived_ppa_keyserver }}"
+    state: present
+  when:
+    - ansible_pkg_mgr == 'apt'
+    - keepalived_ubuntu_src == "ppa"
+  tags:
+    - keepalived-apt-keys
+
+- name: Ensure python apt is installed
+  apt:
+    name: python-apt
+    state: present
+  when:
+    - ansible_pkg_mgr == 'apt'
+
+- name: Add Ubuntu Cloud Archive keyring
+  apt:
+    pkg: ubuntu-cloud-keyring
+    state: "{{ keepalived_package_state }}"
+  when:
+    - ansible_pkg_mgr == 'apt'
+    - keepalived_ubuntu_src == "uca"
+  tags:
+    - keepalived-apt-keys
+
+- name: Add the keepalived apt repository
+  apt_repository:
+    repo: "{{ (keepalived_ubuntu_src == 'ppa') | ternary(keepalived_ppa_repo, keepalived_uca_repo) }}"
+    update_cache: True
+    state: present
+  when:
+    - ansible_pkg_mgr == 'apt'
+    - keepalived_ubuntu_src != "native"
+  tags:
+    - keepalived-repo
+
+- name: Check if keepalived is already installed
+  package:
+    name: "{{ keepalived_package_name }}"
+    state: present
+  register: check_if_present
+  check_mode: yes
+
+- name: Prevent keepalived from starting on install (upstart)
+  copy:
+    dest: "{{ prevent_start_file }}"
+    content: "{{ prevent_start_file_content }}"
+  when:
+    - ansible_os_family | lower == 'debian'
+    - check_if_present is changed
+    - ansible_service_mgr is defined
+    - ansible_service_mgr != 'systemd'
+
+- name: Prevent keepalived from starting on install (systemd)
+  file:
+    state: link
+    src: "/dev/null"
+    dest: "{{ prevent_start_file }}"
+  when:
+    - ansible_os_family | lower == 'debian'
+    - check_if_present is changed
+    - ansible_service_mgr is defined
+    - ansible_service_mgr == 'systemd'
+
+- name: install keepalived
+  package:
+    name: "{{ keepalived_package_name }}"
+    state: present
+    update_cache: "{{ (ansible_pkg_mgr == 'apt') | ternary('yes', omit) }}"
+    cache_valid_time: "{{ (ansible_pkg_mgr == 'apt') | ternary(cache_timeout, omit) }}"
+
+- name: Ensure no new "samples" folder appeared
+  file:
+    path: /etc/keepalived/samples/
+    state: absent
+  when:
+    - ansible_os_family | lower == 'debian'
+
+- name: Revert keepalived start prevention
+  file:
+    dest: "{{ prevent_start_file }}"
+    state: absent
+  when:
+    - ansible_os_family | lower == 'debian'
+    - check_if_present is changed
+
+
+- name: "Systemd daemon_reload"
+  command: systemctl daemon-reload
+  changed_when: check_if_present is changed
+  when:
+    - ansible_service_mgr is defined
+    - ansible_service_mgr == 'systemd'
+

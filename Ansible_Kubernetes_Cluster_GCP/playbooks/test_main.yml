@@ -1,0 +1,27 @@
+---
+
+- hosts: kubernetes-master-nodes
+  remote_user: vagrant
+  become: yes
+  vars_files:
+  - ../roles/common/vars/env_variables
+    
+  # vars:
+  #   variable needed during node installation
+  #   var_node: /tmp
+  roles:
+    - common
+    - master
+
+- hosts: kubernetes-worker-nodes
+  remote_user: vagrant
+  become: yes
+  vars_files:
+  - ../roles/common/vars/env_variables
+    
+  # vars:
+  #   variable needed during node installation
+  #   var_node: /tmp
+  roles:
+    - common
+    - master

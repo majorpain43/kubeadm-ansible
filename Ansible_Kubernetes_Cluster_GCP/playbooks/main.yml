@@ -1,0 +1,26 @@
+---
+
+- hosts: master
+  # remote_user: vagrant
+  become: true
+  # vars_files:
+  # - ../roles/common/vars/env_variables
+    
+  # vars:
+  #   variable needed during node installation
+  #   var_node: /tmp
+  roles:
+    - common
+    - master
+
+- hosts: worker
+  become: true
+  # vars_files:
+  # - ../roles/common/vars/env_variables
+    
+  # vars:
+  #   variable needed during node installation
+  #   var_node: /tmp
+  roles:
+    - common
+    - worker

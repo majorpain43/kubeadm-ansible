@@ -1,0 +1,42 @@
+---
+
+- name: Pulling images required for setting up a Kubernetes cluster
+  shell: kubeadm config images pull
+
+- name: Resetting kubeadm
+  shell: kubeadm reset -f
+  register: output
+
+- name: Initializing Kubernetes cluster
+  shell: kubeadm init --apiserver-advertise-address {{ad_addr}} --apiserver-cert-extra-sans={{ad_addr}} --pod-network-cidr={{cidr_v}}
+
+- name: making new directory for storing configuration
+  become: false
+  file:
+    path: ~/.kube
+    state: directory
+
+- name: Copying required files
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: ~/.kube/config
+    remote_src: yes
+
+- name: Copying required files
+  become: false
+  shell: |
+    # mkdir -p $HOME/.kube
+    # sudo cp -f /etc/kubernetes/admin.conf $HOME/.kube/config
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+- name: Install calico pod network
+  become: false
+  command: kubectl apply -f https://docs.projectcalico.org/v3.8/getting-started/kubernetes/installation/hosted/calico.yaml
+
+- name: Generating join command for worker nodes
+  command: kubeadm token create --print-join-command
+  register: output
+
+- name: Storing Logs and Generated token for future purpose
+  become: false
+  local_action: copy content={{ output.stdout }} dest=/tmp/{{ token_file }}

@@ -1,0 +1,7 @@
+---
+
+- name: resolving cross platform installation procedure
+  import_tasks: master.yml
+  when: ansible_facts['distribution']|lower == 'ubuntu'
+- import_tasks: configure_master_node.yml
+  when: ansible_facts['distribution']|lower == 'centos'

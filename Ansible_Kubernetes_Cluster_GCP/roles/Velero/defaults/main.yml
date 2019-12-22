@@ -1,0 +1,15 @@
+---
+
+velero_ver: v1.0.0
+velero_mirror: https://github.com/heptio/velero/releases/download
+velero_os: linux
+velero_arch: amd64
+
+velero_checksums:
+  v1.0.0:
+    # https://github.com/heptio/velero/releases/download/v1.0.0/velero-v1.0.0-darwin-amd64.tar.gz
+    darwin-amd64: sha256:f00a1ad7188face6a67e8a9d8cff4c32163a9ed654c80716ad817913c592ca94
+    # https://github.com/heptio/velero/releases/download/v1.0.0/velero-v1.0.0-linux-amd64.tar.gz
+    linux-amd64: sha256:48f8591faabb227d2042b64cad35d7018126ec537f8ca1a07b42ef11faec5b94
+
+velero_parent_install_dir: /usr/local

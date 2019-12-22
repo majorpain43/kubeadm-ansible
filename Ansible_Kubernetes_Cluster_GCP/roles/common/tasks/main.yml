@@ -1,0 +1,10 @@
+---
+
+- name: removing swapfiles
+  include_tasks: prerequisite.yml
+
+- name: resolving cross platform installation procedure
+  include_tasks: setting_up.yml
+  when: ansible_facts['distribution']|lower == 'ubuntu'
+- include_tasks: setting_up_nodes.yml
+  when: ansible_facts['distribution']|lower == 'centos'

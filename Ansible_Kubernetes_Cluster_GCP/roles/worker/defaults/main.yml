@@ -1,0 +1,54 @@
+---
+kubernetes_helm_mirror: https://get.helm.sh
+kubernetes_helm_ver: v3.0.0
+kubernetes_helm_os: linux
+kubernetes_helm_arch: amd64
+kubernetes_helm_archive_type: tar.gz
+
+kubernetes_helm_bin_dir: /usr/local/bin
+
+kubernetes_helm_checksums:
+  v2.7.2:
+    linux-amd64: sha256:9f04c4824fc751d6c932ae5b93f7336eae06e78315352aa80241066aa1d66c49
+  v2.8.0:
+    linux-amd64: sha256:6e1f5957f9c7cec8463f38cf658bea0cf225fc324236617b23fe9044e9dd4ba7
+  v2.8.1:
+    linux-amd64: sha256:7df7e9eb1b7fde74cc9741682944e620793e618761ccfa8d4bfb355791b76f1d
+  v2.9.0:
+    linux-amd64: sha256:065f70df6a5c2fb6e89e92cd8297459feccc8cfb5b8ca50aa1b06bb863bcd22e
+  v2.9.1:
+    linux-amd64: sha256:56ae2d5d08c68d6e7400d462d6ed10c929effac929fedce18d2636a9b4e166ba
+  v2.10.0:
+    linux-amd64: sha256:0fa2ed4983b1e4a3f90f776d08b88b0c73fd83f305b5b634175cb15e61342ffe
+  v2.11.0:
+    linux-amd64: sha256:02a4751586d6a80f6848b58e7f6bd6c973ffffadc52b4c06652db7def02773a1
+  v2.12.0:
+    linux-amd64: sha256:9f96a6e4fc52b5df906da381532cc2eb2f3f57cc203ccaec2b11cf5dc26a7dfc
+  v2.12.2:
+    linux-amd64: sha256:edad6d5e594408b996b8d758a04948f89dab15fa6c6ea6daee3709f8c099df6d
+  v2.12.3:
+    linux-amd64: sha256:3425a1b37954dabdf2ba37d5d8a0bd24a225bb8454a06f12b115c55907809107
+  v2.13.0:
+    linux-amd64: sha256:15eca6ad225a8279de80c7ced42305e24bc5ac60bb7d96f2d2fa4af86e02c794
+  v2.13.1:
+    linux-amd64: sha256:c1967c1dfcd6c921694b80ededdb9bd1beb27cb076864e58957b1568bc98925a
+  v2.14.0:
+    linux-amd64: sha256:b5f6a1e642971af1363cadbe1f7f37c029c11dd93813151b521c0dbeacfbdaa9
+  v2.14.1:
+    linux-amd64: sha256:804f745e6884435ef1343f4de8940f9db64f935cd9a55ad3d9153d064b7f5896
+  v2.14.2:
+    linux-amd64: sha256:9f50e69cf5cfa7268b28686728ad0227507a169e52bf59c99ada872ddd9679f0
+  v2.14.3:
+    linux-amd64: sha256:38614a665859c0f01c9c1d84fa9a5027364f936814d1e47839b05327e400bf55
+  v2.15.0:
+    linux-amd64: sha256:50936867d24431a98777828f399b48063c3f66af1ec3ba96ef5a8fc8326ebe74
+  v2.15.1:
+    linux-amd64: sha256:b4d366bd6625477b2954941aeb7b601946aa4226af6728e3a84eac4e62a84042
+  v2.15.2:
+    linux-amd64: sha256:a9d2db920bd4b3d824729bbe1ff3fa57ad27760487581af6e5d3156d1b3c2511
+  v2.16.0:
+    linux-amd64: sha256:2d9124f582a33b269f48215a00922b3dcf7a03f265499886ba956fbc03ff9892
+  v2.16.1:
+    linux-amd64: sha256:7eebaaa2da4734242bbcdced62cc32ba8c7164a18792c8acdf16c77abffce202
+  v3.0.0:
+    linux-amd64: sha256:10e1fdcca263062b1d7b2cb93a924be1ef3dd6c381263d8151dd1a20a3d8c0dc

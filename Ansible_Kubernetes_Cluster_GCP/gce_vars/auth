@@ -1,0 +1,6 @@
+---
+# Google Compute Engine required authentication global variables
+# (Replace 'YOUR_PROJECT_ID' with the Project ID used in creating your GCP project.)
+project: ansibletest-261410
+credentials_file: ~/Ansible_Kubernetes_Cluster_GCP/AnsibleTest-0aa821d834cc.json
+auth_kind: serviceaccount 

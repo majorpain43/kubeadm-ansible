@@ -1,0 +1,3 @@
+---
+kubernetes_privilege_escalate: False
+kubernetes_os: darwin

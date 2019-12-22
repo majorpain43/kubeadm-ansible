@@ -1,0 +1,13 @@
+---
+
+- name: Copying token to worker nodes
+  copy:
+    src: /tmp/{{ token_file }} 
+    dest: ~/join_token
+
+- name: Joining worker nodes with kubernetes master
+  become: true
+  shell: |
+    kubeadm reset -f
+    cat /home/centos/join_token | tail -2 > out.sh
+    sh out.sh
